@@ -1,0 +1,24 @@
+# Ignorar archivos de entorno
+.env
+env
+
+# Ignorar dependencias y archivos de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar bases de datos SQLite (si usas una para pruebas locales)
+*.sqlite3
+*.db
+
+# Ignorar archivos de logs y caché
+logs/
+*.log
+*.cache
+
+# Ignorar archivos de migraciones de Alembic
+migrations/
+
+# Ignorar archivos de Docker
+.dockerignore

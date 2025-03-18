@@ -1,0 +1,31 @@
+services:
+  api:
+    build:
+      context: ./api
+    ports:
+      - "8000:8000"
+    environment:
+      - ENV=production
+    depends_on:
+      - db
+
+  web:
+    build:
+      context: ./web
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: exampledb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data: 

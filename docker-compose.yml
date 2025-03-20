@@ -1,17 +1,16 @@
 services:
   api:
     build:
-      context: ./api
+      context: ./waste-reco-api
     ports:
       - "8000:8000"
     environment:
-      - ENV=production
+      - DATABASE_URL=${DATABASE_URL}
     depends_on:
       - db
-
   web:
     build:
-      context: ./web
+      context: ./waste-reco-web
     ports:
       - "8080:80"
     depends_on:
@@ -19,9 +18,9 @@ services:
   db:
     image: postgres:latest
     environment:
-      POSTGRES_DB: exampledb
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:

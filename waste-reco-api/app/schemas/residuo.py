@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 class ResiduoBase(BaseModel):
     nombre: str
-    categoria: str
+    categoria: int
 
 class ResiduoCreate(ResiduoBase):
     pass

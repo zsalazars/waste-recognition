@@ -1,6 +1,8 @@
 from fastapi import FastAPI, APIRouter
 from api.routes import residuo
 from api.routes import usuario
+from api.routes import reporte
+from api.routes import categoria
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="API de Residuos")
@@ -11,8 +13,8 @@ api_router = APIRouter(prefix="/api/v1")
 # Registramos los routers dentro de este
 api_router.include_router(usuario.router, prefix="/usuarios", tags=["Usuarios"])
 api_router.include_router(residuo.router, prefix="/residuos", tags=["Residuos"])
-api_router.include_router(residuo.router, prefix="/categorias", tags=["Categorias"])
-api_router.include_router(residuo.router, prefix="/reportes", tags=["Reportes"])
+api_router.include_router(categoria.router, prefix="/categorias", tags=["Categorias"])
+api_router.include_router(reporte.router, prefix="/reportes", tags=["Reportes"])
 
 # Lo agregamos a la app principal
 app.include_router(api_router)

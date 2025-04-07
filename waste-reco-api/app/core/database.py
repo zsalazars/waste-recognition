@@ -9,8 +9,6 @@ import os
 # Cargar variables de entorno desde el archivo .env
 load_dotenv()
 
-print(os.environ)
-
 # Obtener DATABASE_URL desde las variables de entorno
 DATABASE_URL = os.getenv("DATABASE_URL")
 

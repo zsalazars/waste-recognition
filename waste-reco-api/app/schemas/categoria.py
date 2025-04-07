@@ -1,13 +1,12 @@
 from pydantic import BaseModel
 
-class UsuarioBase(BaseModel):
+class CategoriaBase(BaseModel):
     nombre: str
-    email: str
 
-class UsuarioCreate(UsuarioBase):
+class CategoriaCreate(CategoriaBase):
     pass
 
-class Usuario(UsuarioBase):
+class Categoria(CategoriaBase):
     id: int
 
     class Config:

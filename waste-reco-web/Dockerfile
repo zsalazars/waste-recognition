@@ -22,7 +22,8 @@ FROM nginx:alpine
 # Copiar los archivos construidos desde la etapa anterior
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Exponer el puerto 80 para servir la aplicación
+COPY default.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 80
 
 # Iniciar Nginx cuando el contenedor se ejecute

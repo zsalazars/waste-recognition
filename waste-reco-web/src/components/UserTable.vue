@@ -174,7 +174,7 @@
                     <div
                       class="h-10 w-10 rounded-full bg-teal-200 text-teal-700 flex items-center justify-center font-bold"
                     >
-                      {{ user.nombre.charAt(0).toUpperCase() }}
+                      {{ user?.nombre?.charAt(0).toUpperCase() }}
                     </div>
                   </div>
                   <div class="ml-4">
@@ -368,6 +368,6 @@ const userStore = useUsuarioStore()
 const { usuarios, isLoading, error } = storeToRefs(userStore)
 
 onMounted(() => {
-  userStore.fetchUsuarios()
+  userStore.getAllUsuarios()
 })
 </script>

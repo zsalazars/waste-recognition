@@ -7,6 +7,6 @@ class Residuo(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, index=True)
-    categoria = Column(Integer, ForeignKey("categorias.id"), index=True)
+    id_tipo_residuo = Column(Integer, ForeignKey("tipo_residuos.id"), index=True)
     
-    categoria_relacion = relationship("Categoria", backref="residuos")
+    tipo_residuo = relationship("TipoResiduo", backref="residuos")

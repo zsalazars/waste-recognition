@@ -3,7 +3,6 @@ from sqlalchemy.orm import Session
 from typing import List
 
 import crud.residuo as crud
-import crud.categoria as crud_categoria
 import schemas.residuo as residuo
 from core.database import get_db
 
@@ -17,10 +16,6 @@ def create_residuo_endpoint(residuo: residuo.ResiduoCreate, db: Session = Depend
 def read_residuos(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     residuos = crud.get_residuos(db, skip=skip, limit=limit)
     return residuos
-
-@router.get("/categorias", response_model=List[residuo.CategoriaConResiduos])
-def obtener_categorias_con_residuos(db: Session = Depends(get_db)):
-    return crud_categoria.get_categorias(db)
 
 @router.get("/{residuo_id}", response_model=residuo.Residuo)
 def read_residuo_endpoint(residuo_id: int, db: Session = Depends(get_db)):

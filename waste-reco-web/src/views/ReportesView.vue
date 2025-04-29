@@ -309,10 +309,10 @@
 
     <!-- Gráficos y Visualizaciones -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-      <!-- Gráfico de tendencia temporal -->
+      <!-- Gráfico de clasificacion de residuos -->
       <div class="bg-white rounded-lg shadow-sm p-6">
         <div class="flex justify-between items-center mb-4">
-          <h3 class="text-lg font-semibold text-gray-800">Tendencia de Recolección</h3>
+          <h3 class="text-lg font-semibold text-gray-800">Reconocimiento de Residuos</h3>
           <div class="flex space-x-2">
             <button class="px-3 py-1 text-xs bg-green-50 text-green-700 rounded-full">
               Diario
@@ -327,33 +327,34 @@
         </div>
 
         <div class="h-80 flex items-center justify-center">
-          <!-- Aquí iría la gráfica de línea temporal -->
+          <!-- Aquí iría la gráfica de precisión de reconocimiento de residuos -->
           <div class="w-full h-full bg-gray-50 rounded-lg flex items-center justify-center">
-            <p class="text-gray-500">Gráfico de línea temporal de recolección de residuos</p>
+            <ResiduosBarChart />
           </div>
         </div>
       </div>
 
-      <!-- Gráfico de composición de residuos -->
+      <!-- Gráfico de clasificacion de usuarios -->
       <div class="bg-white rounded-lg shadow-sm p-6">
         <div class="flex justify-between items-center mb-4">
-          <h3 class="text-lg font-semibold text-gray-800">Composición de Residuos</h3>
+          <h3 class="text-lg font-semibold text-gray-800">Reconocimiento de usuarios</h3>
           <div class="flex space-x-2">
             <button class="px-3 py-1 text-xs bg-green-50 text-green-700 rounded-full">
-              Porcentaje
+              Diario
             </button>
             <button class="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-full">
-              Volumen
+              Semanal
+            </button>
+            <button class="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-full">
+              Mensual
             </button>
           </div>
         </div>
 
         <div class="h-80 flex items-center justify-center">
-          <!-- Aquí iría el gráfico de composición (pastel/dona) -->
+          <!-- Aquí iría la gráfica de precisión de reconocimiento facial -->
           <div class="w-full h-full bg-gray-50 rounded-lg flex items-center justify-center">
-            <p class="text-gray-500">
-              Gráfico de composición (tipo pastel) de residuos por categoría
-            </p>
+            <UsuariosBarChart />
           </div>
         </div>
       </div>
@@ -385,4 +386,7 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import ResiduosBarChart from '@/components/ResiduosBarChart.vue'
+import UsuariosBarChart from '@/components/UsuariosBarChart.vue'
+</script>

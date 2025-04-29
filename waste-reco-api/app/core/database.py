@@ -1,10 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models.base import Base  # Importar Base desde el archivo base
+from models.base import Base
 from models.residuo import Residuo
 from models.usuario import Usuario
-from models.categoria import Categoria
-from models.reporte import Reporte 
+from models.tipo_residuo import TipoResiduo
+from models.prediccion import Prediccion 
 from dotenv import load_dotenv
 import os
 

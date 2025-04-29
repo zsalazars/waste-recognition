@@ -2,9 +2,10 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import http from '@/utils/axios'
 import type Reporte from '@/models/Reporte'
+import type { ReporteResponse } from '@/models/Reporte'
 
 export const useReporteStore = defineStore('reporteStore', () => {
-  const reportes = ref<Reporte[]>([])
+  const reportes = ref<ReporteResponse[]>([])
   const isLoading = ref<boolean>(false)
   const error = ref<string | null>(null)
 
@@ -12,7 +13,7 @@ export const useReporteStore = defineStore('reporteStore', () => {
     isLoading.value = true
     error.value = null
     try {
-      const response = await http.get('/reportes')
+      const response = await http.get('/prediccion')
       reportes.value = response.data
     } catch {
       error.value = 'Error fetching reports'

@@ -12,7 +12,7 @@ export const useResiduoStore = defineStore('residuoStore', () => {
     isLoading.value = true
     error.value = null
     try {
-      const response = await http.get('/residuos/categorias')
+      const response = await http.get('/tipo-residuo/residuos')
       residuosByCategorias.value = response.data
     } catch {
       error.value = 'Error fetching reports'

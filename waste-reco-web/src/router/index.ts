@@ -5,6 +5,7 @@ import LoginView from '@/views/LoginView.vue'
 import UsuariosView from '@/views/UsuariosView.vue'
 import ResiduosVuew from '@/views/ResiduosVuew.vue'
 import ReportesView from '@/views/ReportesView.vue'
+import DashboardView from '@/views/DashboardView.vue'
 
 const routes = [
   {
@@ -16,6 +17,7 @@ const routes = [
     path: '/admin',
     component: AdminLayout,
     children: [
+      { path: '/dashboard', name: 'dashboard', component: DashboardView },
       { path: '/usuarios', name: 'usuarios', component: UsuariosView },
       { path: '/residuos', name: 'residuos', component: ResiduosVuew },
       { path: '/reportes', name: 'reportes', component: ReportesView },

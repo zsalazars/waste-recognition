@@ -106,7 +106,3 @@ onMounted(async () => {
   await residuoStore.getAllResiduos()
 })
 </script>
-
-<style scoped>
-/* Agregar estilos para la vista de residuos */
-</style>

@@ -154,12 +154,6 @@
               </th>
               <th
                 scope="col"
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                Último acceso
-              </th>
-              <th
-                scope="col"
                 class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 Acciones
@@ -200,10 +194,23 @@
                   Activo
                 </span>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {{ '2025-03-15' }}
-              </td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <button @click="selectedUser = user; showModal = true" class="text-blue-600 hover:text-blue-900 mr-3">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M7 7h10M7 11h10M7 15h6M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"
+                    />
+                  </svg>
+                </button>
                 <button class="text-teal-600 hover:text-teal-900 mr-3">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -241,7 +248,6 @@
           </tbody>
         </table>
       </div>
-
       <!-- Paginación -->
       <div
         class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
@@ -356,16 +362,27 @@
         </div>
       </div>
     </div>
+
+    <UsuarioDetalleModal :visible="showModal" :usuario="selectedUser" @close="showModal = false">
+      <h2 class="text-xl font-semibold mb-4">Reporte del Usuario</h2>
+      <p>Aquí puedes mostrar los datos del reporte del usuario...</p>
+    </UsuarioDetalleModal>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
+import { ref } from 'vue'
 import { useUsuarioStore } from '@/stores/usuarioStore'
 import { storeToRefs } from 'pinia'
+import UsuarioDetalleModal from '../components/UsuarioDetalleModal.vue'
+import { defaultUser, type Usuario } from '@/models/Usuario'
 
 const userStore = useUsuarioStore()
 const { usuarios, isLoading, error } = storeToRefs(userStore)
+
+const showModal = ref(false)
+const selectedUser = ref<Usuario>(defaultUser)
 
 onMounted(() => {
   userStore.getAllUsuarios()

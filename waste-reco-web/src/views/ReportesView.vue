@@ -360,9 +360,41 @@
       </div>
     </div>
 
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      <!-- Gráfico de clasificacion de residuos -->
+      <div class="bg-white rounded-lg shadow-sm p-6">
+        <div class="aspect-[4/3] w-full">
+          <ResiduosPorUsuarioPieChart />
+        </div>
+      </div>
+
+      <!-- Gráfico de clasificacion de usuarios -->
+      <div class="bg-white rounded-lg shadow-sm p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-800"></h3>
+          <div class="flex space-x-2">
+            <button class="px-3 py-1 text-xs bg-green-50 text-green-700 rounded-full">
+              Diario
+            </button>
+            <button class="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-full">
+              Semanal
+            </button>
+            <button class="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-full">
+              Mensual
+            </button>
+          </div>
+        </div>
+
+        <div class="h-80 flex items-center justify-center">
+          <!-- Aquí iría la gráfica de precisión de reconocimiento facial -->
+          <div class="w-full h-full bg-gray-50 rounded-lg flex items-center justify-center"></div>
+        </div>
+      </div>
+    </div>
+
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
       <!-- Mapa de calor por ubicación -->
-      <div class="bg-white rounded-lg shadow-sm p-6 lg:col-span-2">
+      <div class="bg-white rounded-lg shadow-sm p-6 lg:col-span-3">
         <div class="flex justify-between items-center mb-4">
           <h3 class="text-lg font-semibold text-gray-800">Distribución Geográfica</h3>
           <select
@@ -387,6 +419,7 @@
 </template>
 
 <script setup lang="ts">
-import ResiduosBarChart from '@/components/ResiduosBarChart.vue'
-import UsuariosBarChart from '@/components/UsuariosBarChart.vue'
+import ResiduosBarChart from '@/components/charts/ResiduosBarChart.vue'
+import UsuariosBarChart from '@/components/charts/UsuariosBarChart.vue'
+import ResiduosPorUsuarioPieChart from '@/components/charts/ResiduosPorUsuarioPieChart.vue'
 </script>

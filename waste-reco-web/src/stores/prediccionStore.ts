@@ -22,6 +22,19 @@ export const useReporteStore = defineStore('reporteStore', () => {
     }
   }
 
+  const getPrediccionByUsuario = async (id: number) => {
+    isLoading.value = true
+    error.value = null
+    try {
+      const response = await http.get(`/prediccion/usuario/${id}`)
+      reportes.value = response.data
+    } catch {
+      error.value = 'Error fetching user prediction'
+    } finally {
+      isLoading.value = false
+    }
+  }
+
   const createReporte = async (reporte: Reporte) => {
     isLoading.value = true
     error.value = null
@@ -40,6 +53,7 @@ export const useReporteStore = defineStore('reporteStore', () => {
     isLoading,
     error,
     getAllReportes,
+    getPrediccionByUsuario,
     createReporte,
   }
 })

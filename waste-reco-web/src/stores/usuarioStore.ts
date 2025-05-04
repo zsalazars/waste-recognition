@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import http from '@/utils/axios'
-import type Usuario from '@/models/Usuario'
+import type { Usuario } from '@/models/Usuario'
 
 export const useUsuarioStore = defineStore('userStore', () => {
   const usuarios = ref<Usuario[]>([])

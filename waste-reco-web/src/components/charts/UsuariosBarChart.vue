@@ -1,6 +1,6 @@
 <template>
   <div class="p-6 space-y-5">
-    <h2 class="text-2xl text-center font-bold pt-5">Rendimiento del modelo por residuo</h2>
+    <h2 class="text-2xl text-center font-bold pt-5">Rendimiento del modelo por usuario</h2>
 
     <Bar v-if="chartData.labels.length > 0" :data="chartData" :options="chartOptions" />
 
@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useReporteStore } from '@/stores/reporteStore'
+import { useReporteStore } from '@/stores/prediccionStore'
 
 import { Bar } from 'vue-chartjs'
 import {
@@ -27,6 +27,8 @@ import {
 // Registrar los componentes necesarios
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend)
+
 const reporteStore = useReporteStore()
 const { reportes } = storeToRefs(reporteStore)
 
@@ -35,29 +37,28 @@ onMounted(async () => {
 })
 
 const chartData = computed(() => {
-  // Clasificar ahora por residuo
-  const residuos: Record<number, { nombre: string; sum: number; count: number }> = {}
+  const usuarios: { [key: number]: { nombre: string; sum: number; count: number } } = {}
 
   reportes.value.forEach((r) => {
-    const id = r.residuo.id
-    const nombre = r.residuo.nombre
+    const id = r.usuario.id
+    const nombre = r.usuario.nombre
 
-    if (!residuos[id]) {
-      residuos[id] = { nombre, sum: 0, count: 0 }
+    if (!usuarios[id]) {
+      usuarios[id] = { nombre, sum: 0, count: 0 }
     }
 
-    residuos[id].sum += parseFloat(r.tasa_acierto.toString())
-    residuos[id].count += 1
+    usuarios[id].sum += parseFloat(r.precision_usuario.toString())
+    usuarios[id].count += 1
   })
 
-  const labels = Object.values(residuos).map((residuo) => residuo.nombre)
-  const data = Object.values(residuos).map((residuo) => (residuo.sum / residuo.count) * 100)
+  const labels = Object.values(usuarios).map((u) => u.nombre)
+  const data = Object.values(usuarios).map((u) => (u.sum / u.count) * 100)
 
   return {
     labels,
     datasets: [
       {
-        label: 'Precisión promedio por residuo (%)',
+        label: 'Precisión promedio por usuario (%)',
         backgroundColor: '#38bdf8',
         data,
       },

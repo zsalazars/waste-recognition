@@ -1,13 +1,16 @@
 from sqlalchemy.orm import Session
 from models.prediccion import Prediccion
 import schemas.prediccion as schemas
+  
+def get_predicciones(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(Prediccion).offset(skip).limit(limit).all()
 
 def get_prediccion(db: Session, prediccion_id: int):
     return db.query(Prediccion).filter(Prediccion.id == prediccion_id).first()
-  
-def get_prediccion(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(Prediccion).offset(skip).limit(limit).all()
-  
+
+def get_predicciones_por_usuario(db: Session, id_usuario: int):
+    return db.query(Prediccion).filter(Prediccion.id_usuario == id_usuario).all()
+
 def create_prediccion(db: Session, prediccion: schemas.PrediccionCreate):
     db_prediccion = Prediccion(**prediccion.dict())
     db.add(db_prediccion)

@@ -9,19 +9,10 @@ def seed_residuos(db: Session):
         {"nombre": "Vidrio", "id_tipo_residuo": "Aprovechables"},
         {"nombre": "Plástico", "id_tipo_residuo": "Aprovechables"},
         {"nombre": "Textiles", "id_tipo_residuo": "Aprovechables"},
-        {"nombre": "Madera", "id_tipo_residuo": "Aprovechables"},
-        {"nombre": "Cuero", "id_tipo_residuo": "Aprovechables"},
-        {"nombre": "Empaques compuestos", "id_tipo_residuo": "Aprovechables"},
-        {"nombre": "Metales", "id_tipo_residuo": "Aprovechables"},
         
-        {"nombre": "Papel encerado", "id_tipo_residuo": "No Aprovechables"},
-        {"nombre": "Cerámicos", "id_tipo_residuo": "No Aprovechables"},
-        {"nombre": "Colillas de cigarro", "id_tipo_residuo": "No Aprovechables"},
         {"nombre": "Residuos sanitarios", "id_tipo_residuo": "No Aprovechables"},
         
         {"nombre": "Restos de alimentos", "id_tipo_residuo": "Orgánicos"},
-        {"nombre": "Restos de poda", "id_tipo_residuo": "Orgánicos"},
-        {"nombre": "Hojarasca", "id_tipo_residuo": "Orgánicos"},
         
         {"nombre": "Pilas", "id_tipo_residuo": "Peligrosos"},
         {"nombre": "Luminaria", "id_tipo_residuo": "Peligrosos"},

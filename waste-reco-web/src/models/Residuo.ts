@@ -1,7 +1,9 @@
+import type TiposResiduo from './TiposResiduo'
+
 export interface Residuo {
   id: number
   nombre: string
-  categoria: number
+  tipo_residuo: TiposResiduo
 }
 
 export interface ResiduoCategoria {

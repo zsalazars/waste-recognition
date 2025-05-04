@@ -1,5 +1,5 @@
 import type { Residuo } from './Residuo'
-import type Usuario from './Usuario'
+import type { Usuario } from './Usuario'
 
 export default interface Reporte {
   id: number

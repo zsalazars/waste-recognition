@@ -258,7 +258,7 @@ const enviarReporte = async (depositos: WastePayload[]) => {
   const body: EmailPayload = {
     subject: 'Informe Trimestral - Q2 2025',
     body: 'Aquí está el resumen de depósitos para el segundo trimestre del año.',
-    to: 'salazarsergio1082@gmail.com',
+    to: usuario.email,
     start_date: formatFecha(startDate),
     end_date: formatFecha(endDate),
     depositos: depositos.map((item) => ({

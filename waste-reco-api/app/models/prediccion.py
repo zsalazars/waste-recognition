@@ -8,7 +8,7 @@ class Prediccion(Base):
     id = Column(Integer, primary_key=True, index=True)
     precision_usuario = Column(Numeric(5, 4), index=True)
     tasa_acierto = Column(Numeric(5, 4), index=True)
-    fecha_prediccion = Column(String, index=True)
+    fecha_prediccion = Column(DateTime, index=True)
     id_residuo = Column(Integer, ForeignKey("residuos.id"), index=True)
     id_usuario = Column(Integer, ForeignKey("usuarios.id"), index=True)
     

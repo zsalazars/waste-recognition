@@ -35,7 +35,7 @@
       <div class="p-6">
         <!-- Usuario Info Card -->
         <div class="bg-gray-50 rounded-lg p-5 shadow-sm mb-6" v-if="usuario">
-          <div class="grid md:grid-cols-3 gap-4">
+          <div class="grid md:grid-cols-4 gap-4">
             <div class="flex items-center">
               <div class="bg-teal-100 p-3 rounded-full mr-3">
                 <svg
@@ -102,6 +102,30 @@
                 <p class="font-medium">{{ usuario.email }}</p>
               </div>
             </div>
+            <div class="flex items-center justify-end">
+              <button
+                class="group relative px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white font-medium rounded-lg transition-all duration-200 ease-in-out flex items-center shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50"
+                @click="enviarReporte(depositos)"
+              >
+                <span class="flex items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 mr-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                    />
+                  </svg>
+                  Enviar reporte semanal
+                </span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -136,12 +160,118 @@
 </template>
 
 <script setup lang="ts">
-import ResiduosUsuarioBarChart from './charts/ResiduosPorUsuarioPieChart.vue'
+import { watch, ref } from 'vue'
+import { startOfWeek, endOfWeek, format } from 'date-fns'
+import { useReporteStore } from '@/stores/prediccionStore'
+import type { Usuario } from '@/models/Usuario'
+import { useEmailStore } from '@/stores/emailStore'
+import type { EmailPayload, WastePayload } from '@/models/EmailPayload'
+import type { ReporteResponse } from '@/models/Reporte'
+import ResiduosUsuarioBarChart from '@/components/charts/ResiduosPorUsuarioPieChart.vue'
 
-defineProps<{
+const reporteStore = useReporteStore()
+const emailStore = useEmailStore()
+
+const { usuario, visible } = defineProps<{
   visible: boolean
-  usuario: { id: number; nombre: string; email: string } | null
+  usuario: Usuario
 }>()
 
 defineEmits(['close'])
+
+const startDate = format(startOfWeek(new Date(), { weekStartsOn: 1 }), 'yyyy-MM-dd')
+const endDate = format(endOfWeek(new Date(), { weekStartsOn: 1 }), 'yyyy-MM-dd')
+
+console.log('startDate:', startDate)
+console.log('endDate:', endDate)
+// Estado reactivo para almacenar los depósitos
+const depositos = ref<WastePayload[]>([
+  { categoria: 'Aprovechables', cantidad: 0 },
+  { categoria: 'No Aprovechables', cantidad: 0 },
+  { categoria: 'Organicos', cantidad: 0 },
+  { categoria: 'Peligrosos', cantidad: 0 },
+])
+
+// Función para contar los residuos por tipo
+const contarResiduosPorTipo = (predicciones: ReporteResponse[]): void => {
+  predicciones.forEach((prediccion) => {
+    const tipo = prediccion.residuo.tipo_residuo.nombre
+    // Aumentamos el contador correspondiente dependiendo del tipo de residuo
+    if (tipo === 'Aprovechables') {
+      depositos.value[0].cantidad += 1
+    } else if (tipo === 'No Aprovechables') {
+      depositos.value[1].cantidad += 1
+    } else if (tipo === 'Organicos') {
+      depositos.value[2].cantidad += 1
+    } else if (tipo === 'Peligrosos') {
+      depositos.value[3].cantidad += 1
+    }
+  })
+}
+
+watch(
+  () => visible,
+  async (newVal) => {
+    if (newVal) {
+      console.log('Usuario:', usuario)
+      depositos.value = [
+        // resetear los valores
+        { categoria: 'Aprovechables', cantidad: 0 },
+        { categoria: 'No Aprovechables', cantidad: 0 },
+        { categoria: 'Organicos', cantidad: 0 },
+        { categoria: 'Peligrosos', cantidad: 0 },
+      ]
+
+      await reporteStore.getPrediccionByUsuario(usuario.id, startDate, endDate)
+      console.log('Predicciones cargadas:', reporteStore.reportes)
+
+      contarResiduosPorTipo(reporteStore.reportes)
+      console.log('Datos de depósitos:', depositos.value)
+    }
+  },
+  { immediate: false },
+)
+
+const formatFecha = (fecha: string): string => {
+  const meses = [
+    'enero',
+    'febrero',
+    'marzo',
+    'abril',
+    'mayo',
+    'junio',
+    'julio',
+    'agosto',
+    'septiembre',
+    'octubre',
+    'noviembre',
+    'diciembre',
+  ]
+
+  const [year, month, day] = fecha.split('-').map(Number)
+  const nombreMes = meses[month - 1]
+
+  return `${day} de ${nombreMes} de ${year}`
+}
+
+const enviarReporte = async (depositos: WastePayload[]) => {
+  const body: EmailPayload = {
+    subject: 'Informe Trimestral - Q2 2025',
+    body: 'Aquí está el resumen de depósitos para el segundo trimestre del año.',
+    to: 'salazarsergio1082@gmail.com',
+    start_date: formatFecha(startDate),
+    end_date: formatFecha(endDate),
+    depositos: depositos.map((item) => ({
+      categoria: `Depósitos ${item.categoria}`,
+      cantidad: item.cantidad,
+    })),
+  }
+
+  try {
+    await emailStore.sendEmail(body)
+    console.log('Email enviado con éxito')
+  } catch (error) {
+    console.error('Error al enviar el email:', error)
+  }
+}
 </script>

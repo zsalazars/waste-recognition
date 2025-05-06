@@ -22,11 +22,18 @@ export const useReporteStore = defineStore('reporteStore', () => {
     }
   }
 
-  const getPrediccionByUsuario = async (id: number) => {
+  const getPrediccionByUsuario = async (id: number, startDate?: string, endDate?: string) => {
     isLoading.value = true
     error.value = null
+
     try {
-      const response = await http.get(`/prediccion/usuario/${id}`)
+      let url = `/prediccion/usuario/${id}`
+
+      if (startDate && endDate) {
+        url += `?start_date=${startDate}&end_date=${endDate}`
+      }
+
+      const response = await http.get(url)
       reportes.value = response.data
     } catch {
       error.value = 'Error fetching user prediction'

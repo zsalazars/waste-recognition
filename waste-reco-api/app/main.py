@@ -3,6 +3,7 @@ from api.routes import residuo
 from api.routes import usuario
 from api.routes import prediccion
 from api.routes import tipo_residuo
+from api.routes import email
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from core.database import engine, SessionLocal
@@ -19,6 +20,7 @@ api_router.include_router(usuario.router, prefix="/usuarios", tags=["Usuarios"])
 api_router.include_router(residuo.router, prefix="/residuos", tags=["Residuos"])
 api_router.include_router(tipo_residuo.router, prefix="/tipo-residuo", tags=["Tipo Residuo"])
 api_router.include_router(prediccion.router, prefix="/prediccion", tags=["Prediccion"])
+api_router.include_router(email.router, prefix="/email", tags=["Email"])
 
 # Lo agregamos a la app principal
 app.include_router(api_router)

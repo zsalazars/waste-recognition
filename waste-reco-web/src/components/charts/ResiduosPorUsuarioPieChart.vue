@@ -63,8 +63,9 @@ import { storeToRefs } from 'pinia'
 import { useReporteStore } from '@/stores/prediccionStore'
 import { Pie } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js'
+import ChartDataLabels from 'chartjs-plugin-datalabels'
 
-ChartJS.register(Title, Tooltip, Legend, ArcElement)
+ChartJS.register(Title, Tooltip, Legend, ArcElement, ChartDataLabels)
 
 // ✅ usuarioId ahora es opcional
 const props = defineProps<{ usuarioId?: number }>()
@@ -144,6 +145,18 @@ const chartOptions = {
           const percentage = ((value / totalResiduos.value) * 100).toFixed(1)
           return `${label}: ${value} (${percentage}%)`
         },
+      },
+    },
+    datalabels: {
+      color: '#fff',
+      formatter: (value: number, context: any) => {
+        const total = totalResiduos.value
+        const percentage = ((value / total) * 100).toFixed(1)
+        return `${value} (${percentage}%)`
+      },
+      font: {
+        weight: 'bold',
+        size: 12,
       },
     },
   },

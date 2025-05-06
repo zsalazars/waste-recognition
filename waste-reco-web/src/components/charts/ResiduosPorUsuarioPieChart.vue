@@ -155,7 +155,7 @@ const chartOptions = {
         return `${value} (${percentage}%)`
       },
       font: {
-        weight: 'bold',
+        weight: 'bold' as const,
         size: 12,
       },
     },

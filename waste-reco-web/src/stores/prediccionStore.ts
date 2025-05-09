@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import http from '@/utils/axios'
-import type Reporte from '@/models/Reporte'
-import type { ReporteResponse } from '@/models/Reporte'
+import type Reporte from '@/models/Prediccion'
+import type { ReporteResponse } from '@/models/Prediccion'
 
 export const useReporteStore = defineStore('reporteStore', () => {
   const reportes = ref<ReporteResponse[]>([])

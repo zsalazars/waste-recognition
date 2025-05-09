@@ -166,7 +166,7 @@ import { useReporteStore } from '@/stores/prediccionStore'
 import type { Usuario } from '@/models/Usuario'
 import { useEmailStore } from '@/stores/emailStore'
 import type { EmailPayload, WastePayload } from '@/models/EmailPayload'
-import type { ReporteResponse } from '@/models/Reporte'
+import type { ReporteResponse } from '@/models/Prediccion'
 import ResiduosUsuarioBarChart from '@/components/charts/ResiduosPorUsuarioPieChart.vue'
 
 const reporteStore = useReporteStore()

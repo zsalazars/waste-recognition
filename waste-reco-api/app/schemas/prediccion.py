@@ -9,6 +9,7 @@ class Prediccion(BaseModel):
     precision_usuario: Decimal
     tasa_acierto: Decimal
     fecha_prediccion: datetime
+    tacho_esperado: bool
 
     usuario: Usuario
     residuo: Residuo
@@ -17,6 +18,8 @@ class PrediccionCreate(BaseModel):
     precision_usuario: Decimal
     tasa_acierto: Decimal
     fecha_prediccion: datetime
+    tacho_esperado: bool
+    
     id_residuo: int
     id_usuario: int
 

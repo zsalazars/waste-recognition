@@ -6,6 +6,7 @@ import UsuariosView from '@/views/UsuariosView.vue'
 import ResiduosVuew from '@/views/ResiduosVuew.vue'
 import ReportesView from '@/views/ReportesView.vue'
 import DashboardView from '@/views/DashboardView.vue'
+import PrediccionesView from '@/views/PrediccionesView.vue'
 
 const routes = [
   {
@@ -20,6 +21,7 @@ const routes = [
       { path: '/dashboard', name: 'dashboard', component: DashboardView },
       { path: '/usuarios', name: 'usuarios', component: UsuariosView },
       { path: '/residuos', name: 'residuos', component: ResiduosVuew },
+      { path: '/predicciones', name: 'predicciones', component: PrediccionesView },
       { path: '/reportes', name: 'reportes', component: ReportesView },
     ],
   },

@@ -230,7 +230,7 @@ const login = () => {
   errorMessage.value = ''
 
   setTimeout(() => {
-    if (email.value === 'admin@example.com' && password.value === 'password123') {
+    if (email.value === 'admin@example.com' && password.value === '12345') {
       alert('¡Acceso exitoso! Bienvenido al Dashboard de Waste Recognition')
       router.push('/dashboard')
     } else {

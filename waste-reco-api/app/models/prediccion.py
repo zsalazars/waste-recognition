@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Numeric
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Numeric, Boolean
 from sqlalchemy.orm import relationship
 from models.base import Base
 
@@ -9,6 +9,7 @@ class Prediccion(Base):
     precision_usuario = Column(Numeric(5, 4), index=True)
     tasa_acierto = Column(Numeric(5, 4), index=True)
     fecha_prediccion = Column(DateTime, index=True)
+    tacho_esperado = Column(Boolean, nullable=False, default=False)
     id_residuo = Column(Integer, ForeignKey("residuos.id"), index=True)
     id_usuario = Column(Integer, ForeignKey("usuarios.id"), index=True)
     

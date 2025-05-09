@@ -9,10 +9,10 @@ from typing import List, Dict
 
 load_dotenv()
 
-SMTP_SERVER = os.getenv("SMTP_SERVER", "smtp.gmail.com")
-SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
-SMTP_USER = 'joelzdanielz2015@gmail.com'
-SMTP_PASSWORD = 'wkfp pfuf ktal sqnb'
+SMTP_SERVER = os.getenv("SMTP_SERVER")
+SMTP_PORT = int(os.getenv("SMTP_PORT"))
+SMTP_USER = os.getenv("SMTP_USER")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
 
 def send_email(subject: str, body: str, recipient: str, start_date: str, end_date: str, depositos: List[Dict[str, str]] = None):
     """

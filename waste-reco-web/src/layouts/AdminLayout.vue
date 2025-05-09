@@ -138,6 +138,30 @@
           </li>
           <li>
             <RouterLink
+              to="/predicciones"
+              class="flex items-center py-2 px-3 rounded-lg text-green-100 hover:bg-white/10 transition-colors duration-200 group"
+              active-class="bg-white/20 text-white font-medium shadow-sm"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-3 text-green-300 group-hover:text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path d="M4 14l4-4 4 4 8-8" />
+                <path d="M4 20h16" />
+                <path d="M6 16v4" />
+                <path d="M10 12v8" />
+                <path d="M14 16v4" />
+                <path d="M18 8v12" />
+                <circle cx="18" cy="5" r="2" />
+              </svg>
+              Predicciones
+            </RouterLink>
+          </li>
+          <li>
+            <RouterLink
               to="/reportes"
               class="flex items-center py-2 px-3 rounded-lg text-green-100 hover:bg-white/10 transition-colors duration-200 group"
               active-class="bg-white/20 text-white font-medium shadow-sm"
@@ -195,8 +219,8 @@
             </RouterLink>
           </li>
           <li>
-            <a
-              href="#"
+            <RouterLink
+              to="/"
               @click.prevent="logout"
               class="flex items-center py-2 px-3 rounded-lg text-green-100 hover:bg-white/10 hover:text-red-100 transition-colors duration-200 group"
             >
@@ -215,7 +239,7 @@
                 />
               </svg>
               Cerrar Sesión
-            </a>
+            </RouterLink>
           </li>
         </ul>
       </nav>
@@ -353,9 +377,5 @@ const toggleSidebar = () => {
   sidebarOpen.value = !sidebarOpen.value
 }
 
-const logout = () => {
-  // Implementar lógica de cierre de sesión
-  alert('Cerrando sesión...')
-  // Aquí irían otras acciones como redireccionar al login
-}
+const logout = () => {}
 </script>
